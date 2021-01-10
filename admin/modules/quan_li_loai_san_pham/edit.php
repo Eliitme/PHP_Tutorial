@@ -1,27 +1,4 @@
 <?php
-require_once('../../../config.php');
-include_once('../../check_login.php');
-if (!$dang_nhap) {
-    $error_login = "error_login";
-    $value = "Vui lòng đăng nhập!";
-    setcookie($error_login, $value, time() + (60), "/");
-    header('location: login.php');
-}
-
-if (isset($_POST['sua_loai'])) {
-    $id = $_POST['id'];
-    $ten_loai_san_pham = $_POST['ten_loai_san_pham'];
-    $is_phu_kien = $_POST['is_phu_kien'];
-
-    $query = "UPDATE quan_li_loai_san_pham SET ten_loai_san_pham = '$ten_loai_san_pham', is_phu_kien = $is_phu_kien WHERE id = $id";
-
-    if (!mysqli_query($conn, $query)) {
-        echo "Có lỗi gòi";
-    } else {
-        echo "Sửa loại sản phẩm thành công";
-    }
-}
-
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
@@ -44,7 +21,7 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-    <form action="edit.php?id=<?= $id ?>" method="post">
+    <form action="index.php?c=loai_san_pham&a=process" method="post">
         <table>
             <tr>
                 <td>ID</td>
@@ -67,7 +44,7 @@ if (isset($_GET['id'])) {
                 <td colspan="2"><button type="submit" name="sua_loai">Sửa Loại</button></td>
             </tr>
             <tr>
-                <td colspan="2"><a href="index.php">Xem danh sách loại sản phẩm</a></td>
+                <td colspan="2"><a href="index.php?c=loai_san_pham&a=index">Xem danh sách loại sản phẩm</a></td>
             </tr>
         </table>
     </form>

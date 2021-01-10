@@ -1,40 +1,5 @@
-<?php
-require_once('../../../config.php');
-include_once('../../check_login.php');
-if (!$dang_nhap) {
-    $error_login = "error_login";
-    $value = "Vui lòng đăng nhập!";
-    setcookie($error_login, $value, time() + (60), "/");
-    header('location: login.php');
-}
-
-if (isset($_POST['them_loai'])) {
-    $ten_loai_san_pham = $_POST['ten_loai_san_pham'];
-    $is_phu_kien = $_POST['is_phu_kien'];
-
-    $query = "INSERT INTO quan_li_loai_san_pham(ten_loai_san_pham, is_phu_kien) VALUES ('$ten_loai_san_pham', $is_phu_kien)";
-
-    if (!mysqli_query($conn, $query)) {
-        echo "Có lỗi gòi";
-    } else {
-        echo "Thêm loại sản phẩm thành công";
-    }
-}
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lí Loại Sản Phẩm - Thêm</title>
-</head>
-
-<body>
-    <form action="add.php" method="post">
-        <table>
+    <form action="index.php?c=loai_san_pham&a=process" method="post">
+        <table class="table table-content">
             <tr>
                 <td>Tên Loại Sản Phẩm</td>
                 <td><input type="text" name="ten_loai_san_pham" id="ten_loai_san_pham"></td>
@@ -49,10 +14,10 @@ if (isset($_POST['them_loai'])) {
                 </td>
             </tr>
             <tr>
-                <td colspan="2"><button type="submit" name="them_loai" onclick="return checkAdd()">Thêm Loại</button></td>
+                <td colspan="2"><button type="submit" name="them_loai" onclick="return checkAdd()" class="btn btn-outline-success">Thêm Loại</button></td>
             </tr>
             <tr>
-                <td colspan="2"><a href="index.php">Xem danh sách loại sản phẩm</a></td>
+                <td colspan="2"><a href="index.php?c=loai_san_pham&a=index">Xem danh sách loại sản phẩm</a></td>
             </tr>
         </table>
     </form>
@@ -72,6 +37,3 @@ if (isset($_POST['them_loai'])) {
             return confirm("Xác nhận thêm loại sản phẩm " + loai + ": " + ten_loai_san_pham.value);
         }
     </script>
-</body>
-
-</html>
