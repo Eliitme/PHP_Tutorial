@@ -24,7 +24,7 @@
                             <a class="nav-link" href="index.php?c=loai_san_pham&a=index">Quản Lí Loại Sản Phẩm</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="index.php?c=san_pham&a=index">Quản Lí Sản Phẩm</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Disabled</a>

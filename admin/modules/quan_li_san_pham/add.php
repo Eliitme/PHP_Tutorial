@@ -1,64 +1,11 @@
-<?php
-require_once('../../../config.php');
-
-$query = "SELECT id, ten_loai_san_pham FROM quan_li_loai_san_pham";
+<?php $query = "SELECT id, ten_loai_san_pham FROM quan_li_loai_san_pham";
 
 $rs = mysqli_query($conn, $query);
 
-if (isset($_POST['them_san_pham'])) {
-
-    $target_dir = "../../images/";
-    $target_file = $target_dir . basename($_FILES["anh_san_pham"]["name"]);
-
-
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-    $date = getdate();
-    // Check if image file is a actual image or fake image
-    $new_target_file = $target_dir . $date['mday'] . $date['mon'] . $date['year'] . '-' . $date[0] . '.' . $imageFileType;
-
-    $check = getimagesize($_FILES["anh_san_pham"]["tmp_name"]);
-    if ($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
-    }
-
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-        // if everything is ok, try to upload file
-    } else {
-        if (move_uploaded_file($_FILES["anh_san_pham"]["tmp_name"], $new_target_file)) {
-            $loai_san_pham = $_POST['loai_san_pham'];
-            $ten_san_pham = $_POST['ten_san_pham'];
-            $gia = $_POST['gia'];
-            $so_luong = $_POST['so_luong'];
-            $mo_ta = $_POST['mo_ta'];
-            $tinh_trang = $_POST['tinh_trang'];
-
-            $query = "INSERT INTO quan_li_san_pham(ten_san_pham, anh_san_pham, gia, so_luong, mo_ta, tinh_trang, id_loai_san_pham) VALUES ('$ten_san_pham', '$new_target_file', $gia, $so_luong, '$mo_ta', $tinh_trang, $loai_san_pham)";
-
-            if (mysqli_query($conn, $query)) {
-                echo "Them sản phẩm thành công";
-            } else {
-                echo "Có lỗi gòi";
-            }
-        } else {
-            echo "Có lỗi gòi";
-        }
-    }
-}
-
-ob_start();
-
 ?>
 
-
-<form action="add.php" method="post" enctype="multipart/form-data">
-    <table>
+<form action="index.php?c=san_pham&a=process" method="post" enctype="multipart/form-data">
+    <table class="table table-content">
         <tr>
             <td>Loại sản phẩm: </td>
             <td>
@@ -102,7 +49,7 @@ ob_start();
             <td colspan="2"><button type="submit" name="them_san_pham">Thêm Sản Phẩm</button></td>
         </tr>
         <tr>
-            <td colspan="2"><a href="index.php">Xem sản phẩm</a></td>
+            <td colspan="2"><a href="index.php?c=san_pham&a=index">Xem sản phẩm</a></td>
         </tr>
     </table>
 
@@ -116,8 +63,3 @@ ob_start();
         baseFloatZIndex: 10005
     });
 </script>
-<?php
-$content = ob_get_contents();
-ob_get_clean();
-require_once('../../index.php');
-?>

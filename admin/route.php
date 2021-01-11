@@ -29,7 +29,7 @@ switch ($controller) {
         switch ($action) {
             case 'index':
                 require_once('dashboard.php');
-                
+
                 break;
 
             case 'logout':
@@ -67,6 +67,25 @@ switch ($controller) {
                 # code...
                 break;
         }
+        break;
+
+    case 'san_pham':
+        switch ($action) {
+            case 'index':
+                # code...
+                require_once('modules/quan_li_san_pham/index.php');
+                break;
+            case 'add':
+                require_once('modules/quan_li_san_pham/add.php');
+                break;
+            case 'process':
+                require_once('modules/quan_li_san_pham/process.php');
+                break;
+            default:
+                # code...
+                break;
+        }
+        break;
     default:
         # code...
         break;
